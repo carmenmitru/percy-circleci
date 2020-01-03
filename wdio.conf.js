@@ -98,7 +98,7 @@ exports.config = {
     // with `/`, the base url gets prepended, not including the path portion of your baseUrl.
     // If your `url` parameter starts without a scheme or `/` (like `some/path`), the base url
     // gets prepended directly.
-    baseUrl: 'https://webdriverio-course-site.netlify.com/',
+    baseUrl: 'https://wdio-v2-course-website.netlify.com/',
     //
     // Default timeout for all waitFor* commands.
     waitforTimeout: 10000,
