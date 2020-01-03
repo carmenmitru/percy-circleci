@@ -2,16 +2,12 @@ describe("Iframe", () => {
     beforeEach(() => {
         browser.url("./#/iframe");
     })
-    // it('should look nice', async function () {
-    //     //await browser.url(TEST_URL)
-    //     await percySnapshot(browser, this.test.fullTitle())
-    //     //assert.equal(await browser.getTitle(), 'jQuery • TodoMVC')
-    // })
-    it('should save screenshot of navbar', async function () {
+    it('should look nice', async function () {
         //await browser.url(TEST_URL)
-        await percySnapshot(browser.$("nav"), this.test.fullTitle())
+        await percySnapshot(browser, this.test.fullTitle())
         //assert.equal(await browser.getTitle(), 'jQuery • TodoMVC')
     })
+
     // it('should save screenshot of fullpage', () => {
     //     browser.saveFullPageScreen('iframe', {});
     // });
