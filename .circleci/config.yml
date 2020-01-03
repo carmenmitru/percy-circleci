@@ -1,20 +1,38 @@
 version: 2.1
 
-orbs:
-  percy: percy/agent@0.1.2
+default_test_steps: &default_test_steps
+  steps:
+    - checkout
+    - run: npm install
+    - run: npm test -- --spec=specs/iframe.spec.js
 
 jobs:
-  run_tests:
-    parallelism: 3
+  test_node_8:
+    docker:
+      - image: circleci/node:8-browsers
+    environment:
+      PERCY_ENABLE: 0
+    <<: *default_test_steps
+  test_node_10_with_percy:
+    # We've opted this node version to be the one that runs and reports Percy's status
+    docker:
+      - image: circleci/node:10-browsers
+    <<: *default_test_steps
+  release:
+    docker:
+      - image: circleci/node:8
     steps:
-      - attach_workspace:
-          at: .
-      - run: npx percy exec -- wdio --spec=specs/iframe.spec.js
+      - checkout
+      - run: yarn
+      - run: npx semantic-release
 
 workflows:
-  test:
+  version: 2.1
+  test_and_release:
     jobs:
-      - run_tests
-      - percy/finalize_all:
+      - test_node_8
+      - test_node_10_with_percy
+      - release:
           requires:
-            - run_tests
+            - test_node_8
+            - test_node_10_with_percy
