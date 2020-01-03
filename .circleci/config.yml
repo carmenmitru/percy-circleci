@@ -4,7 +4,6 @@ default_test_steps: &default_test_steps
   steps:
     - checkout
     - run: npm install
-    - run: sudo npm install -g npx
     - run: npx percy exec -- wdio --spec=specs/iframe.spec.js
 
 jobs:
