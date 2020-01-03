@@ -1,0 +1,20 @@
+version: 2.1
+
+orbs:
+  percy: percy/agent@0.1.2
+
+jobs:
+  run_tests:
+    parallelism: 3
+    steps:
+      - attach_workspace:
+          at: .
+      - run: npx percy exec -- wdio --spec=specs/iframe.spec.js
+
+workflows:
+  test:
+    jobs:
+      - run_tests
+      - percy/finalize_all:
+          requires:
+            - run_tests
